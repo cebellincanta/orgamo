@@ -10,6 +10,7 @@ const Formulario = (props) => {
     const [sobrenome, setSobrenome] = useState('')
     const [telefone, setTelefone] = useState('')
     const [cpf, setCpf] = useState('')
+    const [imagem, setImagem] = useState('')
     const [linguagem, setLinguagem] = useState('')
 
     const aoSalvar = (evento) => {
@@ -19,8 +20,14 @@ const Formulario = (props) => {
             sobrenome: sobrenome, 
             telefone: telefone, 
             cpf: cpf, 
+            imagem: imagem,
             linguagem: linguagem
         })
+        setNome('')
+        setSobrenome('')
+        setCpf('')
+        setTelefone('')
+        setImagem('')
     }
     return (
         <section className='formulario'>
@@ -53,6 +60,13 @@ const Formulario = (props) => {
                     placeholder="Digite o CPF"
                     valor={cpf}
                     aoAlterado={valor => setCpf(valor)}
+                />
+                 <CampoTexto 
+                    obrigatorio={true} 
+                    label="Imagem" 
+                    placeholder="Url da imagenm"
+                    valor={imagem}
+                    aoAlterado={valor => setImagem(valor)}
                 />
                 <ListaSuspensa 
                     obrigatorio={true} 

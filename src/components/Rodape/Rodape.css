@@ -1,0 +1,28 @@
+.rodape {
+    background-color: #6278F7;
+    height: 80px;
+}
+
+.rodape .divs {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 32px;
+    flex-wrap: wrap;
+}
+
+.rodape .divs .icones {
+    margin-top: 28px;
+    padding: 8px;
+    height: 10px;
+}
+
+.rodape .divs .logo {
+    margin-top: 25px;
+    height: 30px    ;
+}
+
+.rodape .divs .dev {
+    margin-top: 25px;
+    padding: 8px;
+    color: whitesmoke;
+}
