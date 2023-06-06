@@ -30,20 +30,18 @@ function App() {
   ]
 
   const [programdores, setProgramadores] = useState([])
-  const aoNovoProgramadorAdicionado = (programador) => {
-    setProgramadores([...programdores, programador])
-  }
+
   return (
       <div className="App">
       <Banner />
-      <Formulario times={times.map(time => time.nome)} aoProgramadorCadastrado={programador => aoNovoProgramadorAdicionado(programador)}/>
-      {times.map(time => <Time 
-                          key={time.nome} 
-                          nome={time.nome} 
-                          corPrimaria={time.corPrimaria} 
-                          corSecundaria={time.corSecundaria}
-                          programadores={programdores.filter(programador => programador.linguagem === time.nome)}
-      />)}
+      <Formulario times={times.map(time => time.nome)} aoProgramadorCadastrado={programador => setProgramadores([...programdores, programador])}/>
+      <section className="times">
+          <h1>Minha organização</h1>
+          {times.map((time, indice) => <Time
+              key={indice}
+              time={time}
+              programadores={programdores.filter(programador => programador.linguagem === time.nome)}/>)}
+      </section>
       <Rodape />
     </div>
   );

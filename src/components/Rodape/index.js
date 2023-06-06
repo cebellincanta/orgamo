@@ -16,7 +16,6 @@ const Rodape = () => {
                     <h5 className='dev'>Desenvolvido por CEB</h5>
                 </div>
         </div>
-            
         </footer>
     )
 }
