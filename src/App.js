@@ -3,44 +3,68 @@ import Banner from './components/Banner';
 import Formulario from './components/Formulario';
 import Time from './components/Time';
 import Rodape from './components/Rodape';
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
 
-  const times = [
+  const [times, setTimes]  = useState([
     {
+      id: uuidv4(),
       nome: 'C#',
-      corPrimaria: '#57C278',
-      corSecundaria: '#D9F7E9'
+      cor: '#57C278'
     },
     {
+      id: uuidv4(),
       nome: 'Java',
-      corPrimaria: '#82CFFA',
-      corSecundaria: '#E8F8FF'
+      cor: '#82CFFA'
     },
     {
+      id: uuidv4(),
       nome: 'Swift',
-      corPrimaria: '#A6D157',
-      corSecundaria: '#F0F8E2'
+      cor: '#A6D157'       
     },
     {
+      id: uuidv4(),
       nome: 'GO',
-      corPrimaria: '#E06B69',
-      corSecundaria: '#FDE7E8'
+      cor: '#E06B69'
     }
-  ]
+  ])
 
   const [programdores, setProgramadores] = useState([])
+
+  function deletarProgramador(id) {
+    setProgramadores(programdores.filter(programador => programador.id !== id))
+  }
+
+  function mudarCorDoTime (cor, id) {
+    setTimes(times.map(time => {
+      if (time.id === id) {
+        time.cor = cor;
+      }
+      return time;
+    }))
+  }
+  function cadastrarTime(novoTime) {
+    setTimes([...times, {...novoTime, id: uuidv4()}])
+  }
 
   return (
       <div className="App">
       <Banner />
-      <Formulario times={times.map(time => time.nome)} aoProgramadorCadastrado={programador => setProgramadores([...programdores, programador])}/>
+      <Formulario
+          cadastrarTime={cadastrarTime}
+          times={times.map(time => time.nome)}
+          aoCadastrar={programador => setProgramadores([...programdores, programador])}
+      />
       <section className="times">
           <h1>Minha organização</h1>
           {times.map((time, indice) => <Time
+              mudarCor={mudarCorDoTime}
               key={indice}
               time={time}
-              programadores={programdores.filter(programador => programador.linguagem === time.nome)}/>)}
+              programadores={programdores.filter(programador => programador.linguagem === time.nome)}
+              aoDeletar={deletarProgramador}
+          />)}
       </section>
       <Rodape />
     </div>

@@ -1,11 +1,11 @@
 import './Formulario.css'
-import CampoTexto from '../CampoTexto'
+import Campo from '../Campo'
 import ListaSuspensa from '../ListaSuspensa'
 import Botao from '../Botao'
 import { useState } from 'react'
 
-const Formulario = (props) => {
-    
+const Formulario = ( { aoCadastrar, times, cadastrarTime }) => {
+    console.log(cadastrarTime)
     const [nome, setNome] = useState('')
     const [sobrenome, setSobrenome] = useState('')
     const [telefone, setTelefone] = useState('')
@@ -13,15 +13,18 @@ const Formulario = (props) => {
     const [imagem, setImagem] = useState('')
     const [linguagem, setLinguagem] = useState('')
 
-    const aoSalvar = (evento) => {
+    const [nomeTime, setNomeTime] = useState('')
+    const [corTime, setCorTime] = useState('')
+
+    const aoSubmeter = (evento) => {
         evento.preventDefault()
-        props.aoProgramadorCadastrado({
-            nome: nome, 
-            sobrenome: sobrenome, 
-            telefone: telefone, 
-            cpf: cpf, 
-            imagem: imagem,
-            linguagem: linguagem
+        aoCadastrar({
+            nome,
+            sobrenome,
+            telefone,
+            cpf,
+            imagem,
+            linguagem
         })
         setNome('')
         setSobrenome('')
@@ -31,56 +34,80 @@ const Formulario = (props) => {
     }
     return (
         <section className='formulario'>
-            <form onSubmit={aoSalvar}>  
+            <form onSubmit={aoSubmeter}>
                 <h2>Preencha dados basicos para se inscrever no site</h2>
-                <CampoTexto 
-                    obrigatorio={true} 
-                    label="Nome" 
-                    placeholder="Digite seu nome"
+                <Campo
+                    obrigatorio={true}
+                    label="Nome"
+                    placeholder="Digite seu nome..."
                     valor={nome}
                     aoAlterado={valor => setNome(valor)}
                 />
-                <CampoTexto 
-                    obrigatorio={true} 
-                    label="Sobrenome"  
-                    placeholder="Digite seu sobrenome"
+                <Campo
+                    obrigatorio={true}
+                    label="Sobrenome"
+                    placeholder="Digite seu sobrenome..."
                     valor={sobrenome}
                     aoAlterado={valor => setSobrenome(valor)}
                     />
-                <CampoTexto 
-                    obrigatorio={true} 
-                    label="Telefone" 
-                    placeholder="Digite seu telefone"
+                <Campo
+                    obrigatorio={true}
+                    label="Telefone"
+                    placeholder="Digite seu telefone..."
                     valor={telefone}
                     aoAlterado={valor => setTelefone(valor)}
                 />
-                <CampoTexto 
-                    obrigatorio={true} 
-                    label="CPF" 
-                    placeholder="Digite o CPF"
+                <Campo
+                    obrigatorio={true}
+                    label="CPF"
+                    placeholder="Digite o CPF..."
                     valor={cpf}
                     aoAlterado={valor => setCpf(valor)}
                 />
-                 <CampoTexto 
-                    obrigatorio={true} 
-                    label="Imagem" 
-                    placeholder="Url da imagenm"
+                 <Campo
+                    obrigatorio={true}
+                    label="Imagem"
+                    placeholder="Url da imagem"
                     valor={imagem}
                     aoAlterado={valor => setImagem(valor)}
                 />
-                <ListaSuspensa 
-                    obrigatorio={true} 
-                    label="Linguagem" 
-                    itens={props.times} 
+                <ListaSuspensa
+                    obrigatorio={true}
+                    label="Linguagem"
+                    itens={times}
                     valor={linguagem}
                     aoAlterado={valor => setLinguagem(valor)}
                     />
                 <Botao>
                     Adicionar ao time
-                </Botao> 
+                </Botao>
+            </form>
+            <form onSubmit={(evento) => {
+                evento.preventDefault()
+                cadastrarTime({nome: nomeTime, cor: corTime})
+            }}>
+                <h2>Preencha dados para criar um novo time.</h2>
+                <Campo
+                    obrigatorio
+                    label="Nome"
+                    placeholder="Digite nome do time"
+                    valor={nomeTime}
+                    aoAlterado={valor => setNomeTime(valor)}
+                />
+                <Campo
+                    obrigatorio
+                    type='color'
+                    label="Cor"
+                    placeholder="Digite cor do time"
+                    valor={corTime}
+                    aoAlterado={valor => setCorTime(valor)}
+                />
+                <Botao>
+                    Criar um novo time
+                </Botao>
             </form>
         </section>
     )
 }
 
-export default Formulario   
+export default Formulario
